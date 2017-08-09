@@ -97,10 +97,12 @@ varargout{1} = handles.output;
 % --- Executes on button press in save_button.
 function save_button_Callback(hObject, eventdata, handles)
 filename = uiputfile('*.fig','Save Figure');
-fh = figure(); %new figure
-copyobj(handles.main_axes, fh); %show selected axes in new figure
-saveas(gcf,filename);
-close(gcf);
+if filename ~= 0
+    fh = figure(); %new figure
+    copyobj(handles.main_axes, fh); %show selected axes in new figure
+    saveas(gcf,filename);
+    close(gcf);
+end
 
 
 
@@ -147,7 +149,9 @@ end
 function browse_button_Callback(hObject, eventdata, handles)
 handles = guidata(hObject);
 folder_name = uigetdir(handles.cwd);
-handles.cwd = folder_name;
+if folder_name ~= 0
+    handles.cwd = folder_name;
+end
 guidata(hObject, handles);
 update_listbox(hObject, eventdata, handles)
 update_plot(hObject, eventdata, handles)
